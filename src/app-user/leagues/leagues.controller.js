@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('eliteAdmin').controller('LeaguesCtrl', LeaguesCtrl);
+    angular.module('eliteApp').controller('LeaguesCtrl', LeaguesCtrl);
 
     LeaguesCtrl.$inject = ['dialogsService', 'initialData', 'eliteApi'];
 

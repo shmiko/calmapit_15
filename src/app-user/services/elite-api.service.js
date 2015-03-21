@@ -26,7 +26,7 @@
             if (mainPromise){
                 return mainPromise;
             }
-            console.log("results should be " + leagueId);
+            console.log("results should be ",leagueId);
                 
             mainPromise = $q.all([
                 getTeams(leagueId),
@@ -44,6 +44,9 @@
             return mainPromise;
         }
 
+        function getLeagues() {
+            return httpGet('/leagues');
+        }
 
 
         function getGames(leagueId){
@@ -80,12 +83,13 @@
                 headers: requestConfig.headers }).then(function(response){
 
                 appSpinner.hideSpinner();
-                console.log('**response from EXECUTE', response);
+                console.log('**response from url', response, requestUrl);
                 return response.data;
             });
         }
 
         function httpGet(url){
+            console.log('**request to ', url);
             return httpExecute(url, 'GET');
         }
     }
