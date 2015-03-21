@@ -3,10 +3,10 @@
 
     angular.module('eliteAdmin').controller('GamesCtrl', GamesCtrl);
 
-    GamesCtrl.$inject = ['$modal', '$location', '$stateParams', 'initialData', 'eliteApi', 'dialogsService'];
+    GamesCtrl.$inject = ['$scope', '$modal', '$location', '$stateParams', 'initialData', 'eliteApi', 'dialogsService'];
 
     /* @ngInject */
-    function GamesCtrl($modal, $location, $stateParams, initialData, eliteApi, dialogs) {
+    function GamesCtrl($scope, $modal, $location, $stateParams, initialData, eliteApi, dialogs) {
         /* jshint validthis: true */
         var vm = this;
 
@@ -19,9 +19,40 @@
         vm.teams = initialData.teams;
         vm.teamsLookup = {};
 
+        vm.calendarConfig = {
+            height: 550,
+            header: {
+                left: 'month agendaWeek agendaDay',
+                center: 'title',
+                right: 'today prev,next'
+            },
+            defaultView: 'agendaDay',
+            firstHour: 8,
+            dayClick: dayClick,
+            editable: true,
+            eventClick: eventClick,
+            eventDrop: eventDrop
+        };
+
         activate();
 
         ////////////////
+
+        function eventDrop(calEvent){
+            var game = _.find(vm.games, { 'id': calEvent.id });
+            game.time = moment(calEvent.start).format('YYYY-MM-DDTHH:mm:00');
+            eliteApi.saveGame(game);
+        }
+
+        function eventClick(calEvent){
+            var game = _.find(vm.games, { 'id': calEvent.id });
+            editItem(game);
+        }
+
+        function dayClick(date){
+            $scope.gamesCalendar.fullCalendar('changeView', 'agendaDay');
+            $scope.gamesCalendar.fullCalendar('gotoDate', date);
+        }
 
         function activate() {
             _.forEach(vm.teams, function(team){
@@ -31,6 +62,20 @@
             _.forEach(vm.locations, function(location){
                 vm.locationsLookup[location.id] = location.name;
             });
+
+            var gameEvents = _.map(vm.games, mapToGameEvent);
+            vm.eventSources = [gameEvents];
+        }
+
+        function mapToGameEvent(game){
+            return {
+                id: game.id,
+                start: game.time,
+                title: vm.teamsLookup[game.team1Id] + ' vs. ' + vm.teamsLookup[game.team2Id],
+                allDay: false,
+                durationEditable: false,
+                end: moment(game.time).add(1, 'hour').toDate()
+            };
         }
 
         function deleteItem(id){
@@ -59,13 +104,15 @@
             });
 
             modalInstance.result.then(function(result){
-                result.leagueId = $stateParams.id;
+                result.leagueId = $stateParams.leagueId;
                 eliteApi.saveGame(result).then(function(data){
                     if (game){
                         _.assign(game, data);
-                        var index = _.findIndex(vm.eventSources[0], { 'id': game.id });
+                        var index = _.findIndex(vm.eventSources[0], { 'id': data.id });
+                        vm.eventSources[0][index] = mapToGameEvent(data);
                     } else{
                         vm.games.push(data);
+                        vm.gameEvents.push(mapToGameEvent(data));
                     }
                 });
             });

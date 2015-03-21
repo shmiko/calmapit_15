@@ -1,11 +1,16 @@
 <div>
-    <!--<h2>League Home</h2>-->
 
-    <!--<tabset>-->
-        <!--<tab heading="Teams" select="vm.go('teams')"></tab>-->
-        <!--<tab heading="Games" select="vm.go('games')"></tab>-->
-        <!--<tab heading="League Home" active="true"></tab>-->
-    <!--</tabset>-->
+    <p></p>
+    <div class="row">
+        <div class="col-md-4">
+            <button class="btn btn-primary" ng-click="vm.save()">Save</button>
+            <button class="btn btn-default" ng-click="vm.reset()">Reset</button>
+        </div>
+    </div>
+    <p></p>
 
-    Leagues Home Content
+    <div ui-ace="{ showGutter: true, mode: 'markdown', theme: 'dreamweaver' }" ng-model="vm.homeContent"></div>
+
+    <h3>Live Preview:</h3>
+    <div data-markdown="{{vm.homeContent}}"></div>
 </div>

@@ -1,5 +1,5 @@
 {
-  "name": "calmpit_15",
+  "name": "elite-schedule-admin",
   "version": "0.0.0",
   "dependencies": {
     "serve-static": "^1.7.1"
