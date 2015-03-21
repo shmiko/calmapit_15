@@ -9,8 +9,20 @@
 
     <p></p>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-2">
             <button class="btn btn-primary" ng-click="vm.editItem()">Add New Game</button>
+        </div>
+
+        <div class="col-md-4">
+            <ui-select multiple reset-search-input="true" ng-model="vm.teamFilter" theme="bootstrap">
+                <ui-select-match placeholder="Select teams to filter...">
+                    {{$item.name}}
+                </ui-select-match>
+                <ui-select-choices repeat="team in vm.teams | filter:$select.search">
+                    <span ng-bind-html="team.name | highlight: $select.search"></span>
+                    <span><small>({{team.divisionName}})</small></span>
+                </ui-select-choices>
+            </ui-select>
         </div>
     </div>
     <p></p>
@@ -26,7 +38,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="game in vm.games | orderBy:'time'">
+        <tr ng-repeat="game in vm.games | orderBy:'time' | filter:vm.gameFilter">
             <td>{{game.time | date: 'short'}}</td>
             <td>{{vm.teamsLookup[game.team1Id]}}</td>
             <td>{{vm.teamsLookup[game.team2Id]}}</td>

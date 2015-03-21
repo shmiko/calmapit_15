@@ -13,6 +13,7 @@
         vm.activate = activate;
         vm.deleteItem = deleteItem;
         vm.editItem = editItem;
+        vm.gameFilter = gameFilter;
         vm.games = initialData.games;
         vm.locations = initialData.locations;
         vm.locationsLookup = {};
@@ -118,6 +119,15 @@
             });
         }
 
+        function gameFilter(game){
+            if (vm.teamFilter && vm.teamFilter.length > 0){
+                return _.some(vm.teamFilter, function(filter){
+                   return game.team1Id === filter.id || game.team2Id === filter.id;
+                });
+            } else{
+                return true;
+            }
+        }
 
     }
 })();

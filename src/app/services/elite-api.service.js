@@ -27,7 +27,7 @@
         var baseUrl = 'https://elite-schedule.azure-mobile.net/tables';
         var requestConfig = {
             headers: {
-                'X-ZUMO-APPLICATION': 'GSECUHNQOOrCwgRHFFYLXWiViGnXNV88'
+                'X-ZUMO-APPLICATION': 'gwlEdKFbiusljqPulpOLoqPELHPZQn59'
             }
         };
 

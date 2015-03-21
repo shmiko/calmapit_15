@@ -3,10 +3,10 @@
 
     angular.module('eliteAdmin').controller('TeamsCtrl', TeamsCtrl);
 
-    TeamsCtrl.$inject = ['$modal', '$state', '$stateParams', 'initialData', 'eliteApi', 'dialogsService'];
+    TeamsCtrl.$inject = ['$q', '$modal', '$state', '$stateParams', 'initialData', 'eliteApi', 'dialogsService'];
 
     /* @ngInject */
-    function TeamsCtrl($modal, $state, $stateParams, initialData, eliteApi, dialogs) {
+    function TeamsCtrl($q, $modal, $state, $stateParams, initialData, eliteApi, dialogs) {
         /* jshint validthis: true */
         var vm = this;
 
@@ -14,6 +14,7 @@
         vm.deleteItem = deleteItem;
         vm.editItem = editItem;
         vm.teams = initialData;
+        vm.showImport = showImport;
         vm.toggleExpand = toggleExpand;
         vm.accordionExpanded = true;
 
@@ -75,6 +76,35 @@
                 })
                 .sortBy('divisionName')
                 .value();
+        }
+
+        function showImport() {
+            var modalInstance = $modal.open({
+                templateUrl: '/app/teams/import-teams.html',
+                controller: 'ImportTeamsCtrl',
+                controllerAs: 'vm',
+                size: 'lg'
+            });
+
+            modalInstance.result.then(function (newTeams) {
+                var promises = [];
+
+                _.forEach(newTeams, function (team) {
+                    var deferred = $q.defer();
+                    promises.push(deferred.promise);
+
+                    team.leagueId = $stateParams.leagueId;
+
+                    eliteApi.saveTeam(team).then(function (data) {
+                        vm.teams.push(data);
+                        deferred.resolve();
+                    });
+                });
+
+                $q.all(promises).then(function () {
+                    initializeGroups();
+                });
+            });
         }
 
         function toggleExpand(expand){

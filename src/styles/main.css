@@ -131,5 +131,9 @@ body {
 
 .ace_editor {
     height: 200px;
-    width: 650px;
+}
+
+.import-grid {
+    width: 840px;
+    height: 250px;
 }
