@@ -13,7 +13,7 @@
             { text: 'Trips', state: 'league.teams' },
             { text: 'Events', state: 'league.games' },
             { text: 'Events Calendar', state: 'league.games-calendar' },
-            { text: 'Home', state: 'league.home' }
+            { text: 'News', state: 'league.home' }
         ];
 
         activate();
