@@ -3,13 +3,20 @@
     var app = angular.module('eliteAdmin', [
         // Angular modules
         //'ngRoute',
+        'ngSanitize',
 
         // 3rd Party Modules
         'ui.bootstrap',
         'ui.router',
         'ui.calendar',
         'uiGmapgoogle-maps',
-        'ui.ace'
+        'ui.ace',
+        'ui.grid',
+        'ui.grid.importer',
+        'ui.grid.edit',
+        'ui.grid.resizeColumns',
+        'ui.select',
+        'ui.alias'
     ]);
 
     //app.config(['$routeProvider', configRoutes]);
