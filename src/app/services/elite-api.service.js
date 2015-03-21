@@ -24,7 +24,7 @@
             saveTeam: saveTeam
         };
 
-        var baseUrl = 'https://elite-schedule-demo.azure-mobile.net/tables';
+        var baseUrl = 'https://elite-schedule.azure-mobile.net/tables';
         var requestConfig = {
             headers: {
                 'X-ZUMO-APPLICATION': 'GSECUHNQOOrCwgRHFFYLXWiViGnXNV88'
