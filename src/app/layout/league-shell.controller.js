@@ -10,9 +10,9 @@
         var vm = this;
         vm.leagueId = $stateParams.leagueId;
         vm.tabs = [
-            { text: 'Teams', state: 'league.teams' },
-            { text: 'Games', state: 'league.games' },
-            { text: 'Games Calendar', state: 'league.games-calendar' },
+            { text: 'Trips', state: 'league.teams' },
+            { text: 'Events', state: 'league.games' },
+            { text: 'Events Calendar', state: 'league.games-calendar' },
             { text: 'Home', state: 'league.home' }
         ];
 
