@@ -6,7 +6,8 @@
 
         // 3rd Party Modules
         'ui.bootstrap',
-        'ui.router'
+        'ui.router',
+        'ui-calendar'
     ]);
 
     //app.config(['$routeProvider', configRoutes]);
