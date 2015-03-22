@@ -54,3 +54,7 @@ gulp.task('connect', function () {
             console.log('Started connect web server on http://localhost:9000');
         });
 });
+
+gulp.task('heroku:production', function(){
+  runSeq('clean', 'build', 'minify')
+})
