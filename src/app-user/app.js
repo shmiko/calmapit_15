@@ -21,7 +21,7 @@
 
         $stateProvider
             .state('app', {
-                url: '/league/:leagueId',
+                url: '/league/"038dfd06-0971-467d-80cb-2000cf3cf989"',
                 templateUrl: 'app-user/layout/shell.html',
                 controller: 'ShellCtrl',
                 controllerAs: 'vm'
