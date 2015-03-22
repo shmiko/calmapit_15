@@ -15,7 +15,7 @@
         var baseUrl = 'https://elite-schedule.azure-mobile.net/tables';
         var requestConfig = {
             headers: {
-                'X-ZUMO-APPLICATION': 'GSECUHNQOOrCwgRHFFYLXWiViGnXNV88'
+                'X-ZUMO-APPLICATION': 'gwlEdKFbiusljqPulpOLoqPELHPZQn59'
             }
         };
 
@@ -26,8 +26,7 @@
             if (mainPromise){
                 return mainPromise;
             }
-            console.log("results should be ",leagueId);
-                
+
             mainPromise = $q.all([
                 getTeams(leagueId),
                 getGames(leagueId),
@@ -44,9 +43,6 @@
             return mainPromise;
         }
 
-        function getLeagues() {
-            return httpGet('/leagues');
-        }
 
 
         function getGames(leagueId){
@@ -83,13 +79,12 @@
                 headers: requestConfig.headers }).then(function(response){
 
                 appSpinner.hideSpinner();
-                console.log('**response from url', response, requestUrl);
+                console.log('**response from EXECUTE', response);
                 return response.data;
             });
         }
 
         function httpGet(url){
-            console.log('**request to ', url);
             return httpExecute(url, 'GET');
         }
     }
