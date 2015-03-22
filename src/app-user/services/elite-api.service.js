@@ -28,7 +28,7 @@
                 return mainPromise;
             }
             if (leagueId === undefined){
-                leagueId = '614b9998-e039-42da-8354-626b7b10a1cf';
+                leagueId = '038dfd06-0971-467d-80cb-2000cf3cf989';
                 console.log('league id is ', leagueId);
             }
                 mainPromise = $q.all([
