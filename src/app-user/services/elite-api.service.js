@@ -9,7 +9,8 @@
         var mainPromise;
 
         var service = {
-            getAllLeagueData: getAllLeagueData
+            getAllLeagueData: getAllLeagueData,
+            getLeagues: getLeagues
         };
 
         var baseUrl = 'https://elite-schedule.azure-mobile.net/tables';
@@ -26,21 +27,24 @@
             if (mainPromise){
                 return mainPromise;
             }
-
-            mainPromise = $q.all([
-                getTeams(leagueId),
-                getGames(leagueId),
-                getLeague(leagueId),
-                getLocations()
-            ]).then(function(results){
-                return {
-                    teams: results[0],
-                    games: results[1],
-                    league: results[2],
-                    locations: results[3]
-                };
-            });
-            return mainPromise;
+            if (leagueId === undefined){
+                leagueId = '614b9998-e039-42da-8354-626b7b10a1cf';
+                console.log('league id is ', leagueId);
+            }
+                mainPromise = $q.all([
+                    getTeams(leagueId),
+                    getGames(leagueId),
+                    getLeague(leagueId),
+                    getLocations()
+                ]).then(function(results){
+                    return {
+                        teams: results[0],
+                        games: results[1],
+                        league: results[2],
+                        locations: results[3]
+                    };
+                });
+                return mainPromise;
         }
 
 
@@ -52,6 +56,10 @@
 
         function getLeague(leagueId){
             return httpGet('/leagues/' + leagueId);
+        }
+
+        function getLeagues(){
+            return httpGet('/leagues');
         }
 
         function getLocations() {
